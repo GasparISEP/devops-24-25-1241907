@@ -37,9 +37,25 @@ public class Employee {
 	protected Employee() {}
 
 	public Employee(String firstName, String lastName, String description, int jobYears) {
+
+		if (isAttributeValid(firstName)) {
+			throw new IllegalArgumentException("First name cannot be empty.");
+		}
 		this.firstName = firstName;
+
+		if (isAttributeValid(lastName)) {
+			throw new IllegalArgumentException("Last name cannot be empty.");
+		}
 		this.lastName = lastName;
+
+		if (isAttributeValid(description)) {
+			throw new IllegalArgumentException("Description cannot be empty.");
+		}
 		this.description = description;
+
+		if (isNumberValid(jobYears)) {
+			throw new IllegalArgumentException("Job Years cannot be negative.");
+		}
 		this.jobYears = jobYears;
 	}
 
@@ -99,6 +115,14 @@ public class Employee {
 
 	public void setJobYears(int jobYears) {
 		this.jobYears = jobYears;
+	}
+
+	private boolean isAttributeValid(String attribute) {
+		return attribute == null || attribute.isBlank();
+	}
+
+	private boolean isNumberValid(int number) {
+		return number < 0;
 	}
 
 	@Override
