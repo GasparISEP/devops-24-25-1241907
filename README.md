@@ -361,3 +361,17 @@ class Employee extends React.Component{
   }
 }
 ```
+
+7. **Testing and Debugging Server and Client Components**
+
+To ensure the seamless integration of the `jobYears` field, I executed the application using `./mvnw spring-boot:run` and tested its functionality at `http://localhost:8080/`.
+This process allowed for real-time verification of the feature within the application's interface.
+Additionally, I conducted a comprehensive code review, focusing on data handling on the server side and the correct display of the `jobYears` attribute on the client side.
+This thorough examination was essential to confirm that the feature operated correctly, maintaining both functionality and code quality.
+
+8. **Conclusion of the Assignment**
+
+After confirming the stability and performance of the newly implemented feature, I committed the final changes to the repository, ensuring the commit message clearly described the enhancements.
+The updated code was then pushed to the remote server to facilitate collaboration and maintain project continuity.
+To highlight this major update, the commit was tagged as v1.2.0, adhering to the project’s semantic versioning approach.
+Additionally, to signify the completion of this phase of the assignment, the repository was marked with the tag ca1-part1.
