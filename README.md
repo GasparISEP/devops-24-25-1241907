@@ -175,11 +175,36 @@ public int hashCode() {
   return Objects.hash(id, firstName, lastName, description, jobYears);
 }
 
+public void setFirstName(String firstName) {
+  if (isAttributeValid(firstName)) {
+    throw new IllegalArgumentException("First name cannot be empty.");
+  }
+  this.firstName = firstName;
+}
+
+public void setLastName(String lastName) {
+  if (isAttributeValid(lastName)) {
+    throw new IllegalArgumentException("Last name cannot be empty.");
+  }
+  this.lastName = lastName;
+}
+
+public void setDescription(String description) {
+  if (isAttributeValid(description)) {
+    throw new IllegalArgumentException("Description cannot be empty.");
+  }
+  this.description = description;
+}
+
+
 public int getJobYears() {
   return jobYears;
 }
 
 public void setJobYears(int jobYears) {
+  if (isNumberValid(jobYears)) {
+    throw new IllegalArgumentException("Job Years cannot be negative.");
+  }
   this.jobYears = jobYears;
 }
 
@@ -267,7 +292,28 @@ class EmployeeTest {
         assertEquals(10, emp.getJobYears());
     }
 
-    @Test
+  @Test
+  void testSettersThrowExceptionForInvalidValues() {
+    Employee emp = new Employee("Frodo", "Baggins", "ring bearer", 5);
+
+    // Teste para o primeiro nome inválido
+    IllegalArgumentException firstNameException = assertThrows(IllegalArgumentException.class, () -> emp.setFirstName(""));
+    assertEquals("First name cannot be empty.", firstNameException.getMessage());
+
+    // Teste para o último nome inválido
+    IllegalArgumentException lastNameException = assertThrows(IllegalArgumentException.class, () -> emp.setLastName(""));
+    assertEquals("Last name cannot be empty.", lastNameException.getMessage());
+
+    // Teste para a descrição inválida
+    IllegalArgumentException descriptionException = assertThrows(IllegalArgumentException.class, () -> emp.setDescription(""));
+    assertEquals("Description cannot be empty.", descriptionException.getMessage());
+
+    // Teste para anos de trabalho negativo
+    IllegalArgumentException jobYearsException = assertThrows(IllegalArgumentException.class, () -> emp.setJobYears(-1));
+    assertEquals("Job Years cannot be negative.", jobYearsException.getMessage());
+  }
+
+  @Test
     void testEqualsAndHashCode() {
         Employee emp1 = new Employee("Frodo", "Baggins", "ring bearer", 5);
         Employee emp2 = new Employee("Frodo", "Baggins", "ring bearer", 5);
