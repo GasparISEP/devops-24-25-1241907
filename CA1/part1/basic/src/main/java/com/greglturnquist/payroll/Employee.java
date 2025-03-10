@@ -90,6 +90,9 @@ public class Employee {
 	}
 
 	public void setFirstName(String firstName) {
+		if (isAttributeValid(firstName)) {
+			throw new IllegalArgumentException("First name cannot be empty.");
+		}
 		this.firstName = firstName;
 	}
 
@@ -98,6 +101,9 @@ public class Employee {
 	}
 
 	public void setLastName(String lastName) {
+		if (isAttributeValid(lastName)) {
+			throw new IllegalArgumentException("Last name cannot be empty.");
+		}
 		this.lastName = lastName;
 	}
 
@@ -106,6 +112,9 @@ public class Employee {
 	}
 
 	public void setDescription(String description) {
+		if (isAttributeValid(description)) {
+			throw new IllegalArgumentException("Description cannot be empty.");
+		}
 		this.description = description;
 	}
 
@@ -114,6 +123,9 @@ public class Employee {
 	}
 
 	public void setJobYears(int jobYears) {
+		if (isNumberValid(jobYears)) {
+			throw new IllegalArgumentException("Job Years cannot be negative.");
+		}
 		this.jobYears = jobYears;
 	}
 
