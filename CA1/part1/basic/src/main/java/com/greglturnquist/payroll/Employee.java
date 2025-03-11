@@ -33,10 +33,11 @@ public class Employee {
 	private String lastName;
 	private String description;
 	private int jobYears;
+	private String jobTitle;
 
 	protected Employee() {}
 
-	public Employee(String firstName, String lastName, String description, int jobYears) {
+	public Employee(String firstName, String lastName, String description, int jobYears, String jobTitle) {
 
 		if (isAttributeValid(firstName)) {
 			throw new IllegalArgumentException("First name cannot be empty.");
@@ -57,6 +58,11 @@ public class Employee {
 			throw new IllegalArgumentException("Job Years cannot be negative.");
 		}
 		this.jobYears = jobYears;
+
+		if (isAttributeValid(jobTitle)) {
+			throw new IllegalArgumentException("Job Title cannot be empty.");
+		}
+		this.jobTitle = jobTitle;
 	}
 
 	@Override
@@ -68,13 +74,14 @@ public class Employee {
 				Objects.equals(firstName, employee.firstName) &&
 				Objects.equals(lastName, employee.lastName) &&
 				Objects.equals(description, employee.description) &&
-				Objects.equals(jobYears, employee.jobYears);
+				Objects.equals(jobYears, employee.jobYears) &&
+				Objects.equals(jobTitle, employee.jobTitle);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, firstName, lastName, description, jobYears);
+		return Objects.hash(id, firstName, lastName, description, jobYears, jobTitle);
 	}
 
 	public Long getId() {
@@ -129,6 +136,17 @@ public class Employee {
 		this.jobYears = jobYears;
 	}
 
+	public String getJobTitle() {
+		return jobTitle;
+	}
+
+	public void setJobTitle(String jobTitle) {
+		if (isAttributeValid(jobTitle)) {
+			throw new IllegalArgumentException("Job Title cannot be empty.");
+		}
+		this.jobTitle = jobTitle;
+	}
+
 	private boolean isAttributeValid(String attribute) {
 		return attribute == null || attribute.isBlank();
 	}
@@ -145,6 +163,7 @@ public class Employee {
 				", lastName='" + lastName + '\'' +
 				", description='" + description + '\'' +
 				", jobYears= '" + jobYears + '\'' +
+				", jobTitle= '" + jobTitle + '\'' +
 				'}';
 	}
 }
