@@ -13,50 +13,53 @@ class EmployeeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "Frodo, Baggins, ring bearer, 5, Hobbit",
-            "Bilbo, Baggins, burglar, 0, Hobbit"
+            "Frodo, Baggins, ring bearer, 5, Hobbit, frodo.baggins@lordoftherings.com",
+            "Bilbo, Baggins, burglar, 0, Hobbit, frodo.baggins@lordoftherings.com"
     })
 
-    void testValidEmployee(String firstName, String lastName, String description, int jobYears, String jobTitle) {
-        assertDoesNotThrow(() -> new Employee(firstName, lastName, description, jobYears, jobTitle));
+    void testValidEmployee(String firstName, String lastName, String description, int jobYears, String jobTitle, String email) {
+        assertDoesNotThrow(() -> new Employee(firstName, lastName, description, jobYears, jobTitle, email));
     }
 
     @ParameterizedTest
     @CsvSource({
-            "'', Baggins, ring bearer, 5, Hobbit",
-            "Frodo, '', ring bearer, 5, Hobbit",
-            "Frodo, Baggins, '', 5, Hobbit",
-            "Frodo, Baggins, ring bearer, -1, Hobbit",
-            "Frodo, Baggins, ring bearer, 5, ''"
+            "'', Baggins, ring bearer, 5, Hobbit, v",
+            "Frodo, '', ring bearer, 5, Hobbit, frodo.baggins@lordoftherings.com",
+            "Frodo, Baggins, '', 5, Hobbit, frodo.baggins@lordoftherings.com",
+            "Frodo, Baggins, ring bearer, -1, Hobbit, frodo.baggins@lordoftherings.com",
+            "Frodo, Baggins, ring bearer, 5, '', frodo.baggins@lordoftherings.com",
+            "Frodo, Baggins, ring bearer, 5, Hobbit, ''",
+
 
     })
 
-    void testInvalidAttributesForEmployee(String firstName, String lastName, String description, int jobYears, String jobTitle) {
-        assertThrows(IllegalArgumentException.class, () -> new Employee(firstName, lastName, description, jobYears, jobTitle));
+    void testInvalidAttributesForEmployee(String firstName, String lastName, String description, int jobYears, String jobTitle, String email) {
+        assertThrows(IllegalArgumentException.class, () -> new Employee(firstName, lastName, description, jobYears, jobTitle, email));
     }
 
     @ParameterizedTest
     @MethodSource("provideNullAttributes")
-    void testNullAttributes(String firstName, String lastName, String description, int jobYears, String jobTitle, String expectedMessage) {
+    void testNullAttributes(String firstName, String lastName, String description, int jobYears, String jobTitle, String email, String expectedMessage) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> new Employee(firstName, lastName, description, jobYears, jobTitle));
+                () -> new Employee(firstName, lastName, description, jobYears, jobTitle, email));
         assertEquals(expectedMessage, exception.getMessage());
     }
 
     static Stream<Arguments> provideNullAttributes() {
         return Stream.of(
-                Arguments.of(null, "Baggins", "ring bearer", 5, "Hobbit", "First name cannot be empty."),
-                Arguments.of("Frodo", null, "ring bearer", 5, "Hobbit", "Last name cannot be empty."),
-                Arguments.of("Frodo", "Baggins", null, 5, "Hobbit", "Description cannot be empty."),
-                Arguments.of("Frodo", "Baggins", "ring bearer", -1, "Hobbit", "Job Years cannot be negative."),
-                Arguments.of("Frodo", "Baggins", "ring bearer", 5, null, "Job Title cannot be empty.")
+                Arguments.of(null, "Baggins", "ring bearer", 5, "Hobbit", "frodo.baggins@lordoftherings.com", "First name cannot be empty."),
+                Arguments.of("Frodo", null, "ring bearer", 5, "Hobbit", "frodo.baggins@lordoftherings.com", "Last name cannot be empty."),
+                Arguments.of("Frodo", "Baggins", null, 5, "Hobbit", "frodo.baggins@lordoftherings.com","Description cannot be empty."),
+                Arguments.of("Frodo", "Baggins", "ring bearer", -1, "Hobbit", "frodo.baggins@lordoftherings.com","Job Years cannot be negative."),
+                Arguments.of("Frodo", "Baggins", "ring bearer", 5, null, "frodo.baggins@lordoftherings.com", "Job Title cannot be empty."),
+                Arguments.of("Frodo", "Baggins", "ring bearer", 5, "Hobbit", null, "E-mail cannot be empty.")
 
-        );
+                );
     }
 
     @Test
     void testGettersAndSetters() {
-        Employee emp = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit");
+        Employee emp = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit", "frodo.baggins@lordoftherings.com");
         emp.setId(1L);
 
         emp.setFirstName("Sam");
@@ -64,6 +67,7 @@ class EmployeeTest {
         emp.setDescription("gardener");
         emp.setJobYears(10);
         emp.setJobTitle("Unicorn");
+        emp.setEmail("bilbo.baggins@lordoftherings.com");
 
         assertEquals(1L, emp.getId());
         assertEquals("Sam", emp.getFirstName());
@@ -71,11 +75,13 @@ class EmployeeTest {
         assertEquals("gardener", emp.getDescription());
         assertEquals(10, emp.getJobYears());
         assertEquals("Unicorn", emp.getJobTitle());
+        assertEquals("frodo.baggins@lordoftherings.com", emp.getEmail());
+
     }
 
     @Test
     void testSettersThrowExceptionForInvalidValues() {
-        Employee emp = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit");
+        Employee emp = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit", "frodo.baggins@lordoftherings.com");
 
         // Teste para o primeiro nome inválido
         IllegalArgumentException firstNameException = assertThrows(IllegalArgumentException.class, () -> emp.setFirstName(""));
@@ -93,23 +99,27 @@ class EmployeeTest {
         IllegalArgumentException jobYearsException = assertThrows(IllegalArgumentException.class, () -> emp.setJobYears(-1));
         assertEquals("Job Years cannot be negative.", jobYearsException.getMessage());
 
-        //Teste para Job Title
+        //Teste para Job Title invalido
         IllegalArgumentException jobTitleException = assertThrows(IllegalArgumentException.class, () -> emp.setJobTitle(""));
         assertEquals("Job Title cannot be empty.", jobTitleException.getMessage());
+
+        //Teste para Job Title invalido
+        IllegalArgumentException emailException = assertThrows(IllegalArgumentException.class, () -> emp.setEmail(""));
+        assertEquals("E-mail cannot be empty.", emailException.getMessage());
 
     }
 
     @Test
     void testEqualsAndHashCode() {
-        Employee emp1 = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit");
-        Employee emp2 = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit");
+        Employee emp1 = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit", "frodo.baggins@lordoftherings.com");
+        Employee emp2 = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit", "frodo.baggins@lordoftherings.com");
         emp1.setId(1L);
         emp2.setId(1L);
 
         assertEquals(emp1, emp2);
         assertEquals(emp1.hashCode(), emp2.hashCode());
 
-        Employee emp3 = new Employee("Bilbo", "Baggins", "burglar", 0, "Hobbit");
+        Employee emp3 = new Employee("Bilbo", "Baggins", "burglar", 0, "Hobbit", "bilbo.baggins@lordoftherings.com");
         emp3.setId(2L);
 
         assertNotEquals(emp1, emp3);
@@ -118,7 +128,7 @@ class EmployeeTest {
 
     @Test
     void testToString() {
-        Employee emp = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit");
+        Employee emp = new Employee("Frodo", "Baggins", "ring bearer", 5, "Hobbit", "frodo.baggins@lordoftherings.com");
         emp.setId(1L);
 
         String empString = emp.toString();
@@ -127,6 +137,7 @@ class EmployeeTest {
         assertTrue(empString.contains("ring bearer"));
         assertTrue(empString.contains("5"));
         assertTrue(empString.contains("Hobbit"));
+        assertTrue(empString.contains("frodo.baggins@lordoftherings.com"));
 
     }
 
@@ -140,5 +151,6 @@ class EmployeeTest {
         assertNull(emp.getDescription());
         assertEquals(0, emp.getJobYears());
         assertNull(emp.getJobTitle());
+        assertNull(emp.getEmail());
     }
 }

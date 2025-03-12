@@ -34,10 +34,11 @@ public class Employee {
 	private String description;
 	private int jobYears;
 	private String jobTitle;
+	private String email;
 
 	protected Employee() {}
 
-	public Employee(String firstName, String lastName, String description, int jobYears, String jobTitle) {
+	public Employee(String firstName, String lastName, String description, int jobYears, String jobTitle, String email) {
 
 		if (isAttributeValid(firstName)) {
 			throw new IllegalArgumentException("First name cannot be empty.");
@@ -63,6 +64,12 @@ public class Employee {
 			throw new IllegalArgumentException("Job Title cannot be empty.");
 		}
 		this.jobTitle = jobTitle;
+
+		if (isAttributeValid(email)) {
+			throw new IllegalArgumentException("E-mail cannot be empty.");
+		}
+		this.email = email;
+
 	}
 
 	@Override
@@ -75,7 +82,8 @@ public class Employee {
 				Objects.equals(lastName, employee.lastName) &&
 				Objects.equals(description, employee.description) &&
 				Objects.equals(jobYears, employee.jobYears) &&
-				Objects.equals(jobTitle, employee.jobTitle);
+				Objects.equals(jobTitle, employee.jobTitle) &&
+				Objects.equals(email, employee.email);
 	}
 
 	@Override
@@ -147,6 +155,16 @@ public class Employee {
 		this.jobTitle = jobTitle;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		if (isAttributeValid(email)) {
+			throw new IllegalArgumentException("E-mail cannot be empty.");
+		}
+	}
+
 	private boolean isAttributeValid(String attribute) {
 		return attribute == null || attribute.isBlank();
 	}
@@ -164,6 +182,7 @@ public class Employee {
 				", description='" + description + '\'' +
 				", jobYears= '" + jobYears + '\'' +
 				", jobTitle= '" + jobTitle + '\'' +
+				", email= '" + email + '\'' +
 				'}';
 	}
 }
