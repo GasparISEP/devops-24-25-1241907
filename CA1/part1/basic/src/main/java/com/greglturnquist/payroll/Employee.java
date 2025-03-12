@@ -65,8 +65,8 @@ public class Employee {
 		}
 		this.jobTitle = jobTitle;
 
-		if (isAttributeValid(email)) {
-			throw new IllegalArgumentException("E-mail cannot be empty.");
+		if (isEmailValid(email)) {
+			throw new IllegalArgumentException("E-mail must be valid.");
 		}
 		this.email = email;
 
@@ -160,8 +160,8 @@ public class Employee {
 	}
 
 	public void setEmail(String email) {
-		if (isAttributeValid(email)) {
-			throw new IllegalArgumentException("E-mail cannot be empty.");
+		if (isEmailValid(email)) {
+			throw new IllegalArgumentException("E-mail must be valid.");
 		}
 	}
 
@@ -171,6 +171,10 @@ public class Employee {
 
 	private boolean isNumberValid(int number) {
 		return number < 0;
+	}
+
+	private boolean isEmailValid(String email) {
+		return email == null || email.isBlank() || !email.contains("@");
 	}
 
 	@Override
