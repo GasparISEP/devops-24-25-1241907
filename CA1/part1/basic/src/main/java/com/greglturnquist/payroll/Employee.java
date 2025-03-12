@@ -65,7 +65,7 @@ public class Employee {
 		}
 		this.jobTitle = jobTitle;
 
-		if (isEmailValid(email)) {
+		if (!isEmailValid(email)) {
 			throw new IllegalArgumentException("E-mail must be valid.");
 		}
 		this.email = email;
@@ -89,7 +89,7 @@ public class Employee {
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, firstName, lastName, description, jobYears, jobTitle);
+		return Objects.hash(id, firstName, lastName, description, jobYears, jobTitle, email);
 	}
 
 	public Long getId() {
@@ -160,9 +160,10 @@ public class Employee {
 	}
 
 	public void setEmail(String email) {
-		if (isEmailValid(email)) {
+		if (!isEmailValid(email)) {
 			throw new IllegalArgumentException("E-mail must be valid.");
 		}
+		this.email = email;
 	}
 
 	private boolean isAttributeValid(String attribute) {
@@ -174,7 +175,11 @@ public class Employee {
 	}
 
 	private boolean isEmailValid(String email) {
-		return email == null || email.isBlank() || !email.contains("@");
+		if(email == null || email.isBlank()) {
+			return false;
+		}
+		String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+		return email.matches(emailRegex);
 	}
 
 	@Override

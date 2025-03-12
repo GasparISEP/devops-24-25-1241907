@@ -30,7 +30,6 @@ class EmployeeTest {
             "Frodo, Baggins, ring bearer, 5, '', frodo.baggins@lordoftherings.com",
             "Frodo, Baggins, ring bearer, 5, Hobbit, ''",
 
-
     })
 
     void testInvalidAttributesForEmployee(String firstName, String lastName, String description, int jobYears, String jobTitle, String email) {
@@ -53,7 +52,6 @@ class EmployeeTest {
                 Arguments.of("Frodo", "Baggins", "ring bearer", -1, "Hobbit", "frodo.baggins@lordoftherings.com","Job Years cannot be negative."),
                 Arguments.of("Frodo", "Baggins", "ring bearer", 5, null, "frodo.baggins@lordoftherings.com", "Job Title cannot be empty."),
                 Arguments.of("Frodo", "Baggins", "ring bearer", 5, "Hobbit", null, "E-mail must be valid.")
-
                 );
     }
 
@@ -75,8 +73,7 @@ class EmployeeTest {
         assertEquals("gardener", emp.getDescription());
         assertEquals(10, emp.getJobYears());
         assertEquals("Unicorn", emp.getJobTitle());
-        assertEquals("frodo.baggins@lordoftherings.com", emp.getEmail());
-
+        assertEquals("bilbo.baggins@lordoftherings.com", emp.getEmail());
     }
 
     @Test
@@ -138,7 +135,6 @@ class EmployeeTest {
         assertTrue(empString.contains("5"));
         assertTrue(empString.contains("Hobbit"));
         assertTrue(empString.contains("frodo.baggins@lordoftherings.com"));
-
     }
 
     @Test
