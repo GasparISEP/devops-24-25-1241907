@@ -23,7 +23,7 @@ class EmployeeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "'', Baggins, ring bearer, 5, Hobbit, v",
+            "'', Baggins, ring bearer, 5, Hobbit, frodo.baggins@lordoftherings.com",
             "Frodo, '', ring bearer, 5, Hobbit, frodo.baggins@lordoftherings.com",
             "Frodo, Baggins, '', 5, Hobbit, frodo.baggins@lordoftherings.com",
             "Frodo, Baggins, ring bearer, -1, Hobbit, frodo.baggins@lordoftherings.com",
@@ -52,7 +52,7 @@ class EmployeeTest {
                 Arguments.of("Frodo", "Baggins", null, 5, "Hobbit", "frodo.baggins@lordoftherings.com","Description cannot be empty."),
                 Arguments.of("Frodo", "Baggins", "ring bearer", -1, "Hobbit", "frodo.baggins@lordoftherings.com","Job Years cannot be negative."),
                 Arguments.of("Frodo", "Baggins", "ring bearer", 5, null, "frodo.baggins@lordoftherings.com", "Job Title cannot be empty."),
-                Arguments.of("Frodo", "Baggins", "ring bearer", 5, "Hobbit", null, "E-mail cannot be empty.")
+                Arguments.of("Frodo", "Baggins", "ring bearer", 5, "Hobbit", null, "E-mail must be valid.")
 
                 );
     }
@@ -105,7 +105,7 @@ class EmployeeTest {
 
         //Teste para Job Title invalido
         IllegalArgumentException emailException = assertThrows(IllegalArgumentException.class, () -> emp.setEmail(""));
-        assertEquals("E-mail cannot be empty.", emailException.getMessage());
+        assertEquals("E-mail must be valid.", emailException.getMessage());
 
     }
 
