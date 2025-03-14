@@ -12,9 +12,12 @@
 
 - [Environment Setup](#environment-setup)
 
-- [Week 1: Development Without Branches](#week-1-development-without-branches)
+- [Part 1: Development Without Branches](#part-1-development-without-branches)
     - [Goals and Requirements](#goals-and-requirements)
     - [Key Developments](#key-developments)
+- [Part 2: Development Using Branches](#part-2-development-using-branches)
+    - [Goals and Requirements](#goals-and-requirements-1)
+    - [Key Developments](#key-developments-1)
 
 
 ## Introduction
@@ -72,7 +75,7 @@ git push -u origin main
 This approach provided a tidy and well-structured beginning for my class assignments, establishing a direct connection to the original tutorial application while keeping my repository ready for all future developments.
 
 
-## Step 1: Development Without Branches
+## Part 1: Development Without Branches
 
 ### Goals and Requirements
 - The first segment of the assignment is dedicated to mastering basic version control techniques without using branching.
@@ -84,7 +87,7 @@ This approach provided a tidy and well-structured beginning for my class assignm
 
 1. **Opened an issue on the remote repository via GitHub.**
 
-The title of the issue is “In this first part of the exercise, we will use only the master branch. #1”.
+The title of the issue is “In this first part of the exercise, we will use only the main branch. #1”.
 This was done to document and communicate that, for this initial phase of the exercise, all development should occur exclusively on the main branch, ensuring a straightforward and unified version control workflow.
 
 2. **Transfer the code of the Tutorial React.js and Spring Data REST Application into a new folder named part1, which is located inside the CA1 directory.**
@@ -421,3 +424,103 @@ After confirming the stability and performance of the newly implemented feature,
 The updated code was then pushed to the remote server to facilitate collaboration and maintain project continuity.
 To highlight this major update, the commit was tagged as v1.2.0, adhering to the project’s semantic versioning approach.
 Additionally, to signify the completion of this phase of the assignment, the repository was marked with the tag ca1-part1.1.
+
+## Part 2: Development Using Branches
+
+### Goals and Requirements
+-   In the second part, the focus shifts to using branches for developing new features and fixing bugs.
+-   There is a strong emphasis on creating isolated development environments and employing effective merge strategies.
+-   Create dedicated feature branches for new developments or bug fixes, ensuring that changes do not affect the main codebase until they are fully ready for integration.
+-   The section concludes by tagging the main branch after successful merges, marking new application versions and demonstrating efficient branch management in version control.
+
+### Key Developments
+
+In the second part, the approach shifted to leveraging branch-based development to further enhance the application’s features and resolve existing bugs, all while ensuring that the main branch remains stable for releasing production-ready versions.
+Since the method for adding new features and fixing bugs is largely similar to what was described in Part 1, I will not duplicate all the code details here. 
+The key distinction is the integration of branches.
+
+1. **Start using the main branch**
+
+To verify that I was on the correct branch specifically, the main branch used for releasing stable versions, I ran the `git branch` command.
+This step was critical in the second part, as the current working branch is highlighted by an asterisk (*) in the output.
+
+2. **Develop new features in branches**
+
+During the development phase aimed at integrating an email field into our application, managing branches was essential.
+I began by creating a dedicated feature branch named `email-field` to isolate all changes related to this functionality.
+Once the branch was established, I switched my working context to `email-field` to start development.
+To confirm that I was on the correct branch, I executed the `git branch` command, which verified the active branch.
+
+```shell
+git branch email-field
+git checkout email-field
+git branch
+```
+
+3. **Integration and Testing of the Email Field**
+
+The process for integrating an email field into the application, along with ensuring strong validation, followed a similar approach to the implementation of the jobYears field in Part 1.
+- **Code Implementation**: In line with the previous feature, I enhanced the Employee class by adding an email field along with its getter and setter methods. 
+This required updating data models, forms, and views to ensure the new field was properly integrated into both the frontend and backend of the application.
+- **Unit Testing**: As per the established methodology, I created comprehensive unit tests to verify that Employee instances are correctly instantiated with the new email field. 
+These tests also enforce validation rules to ensure that the email attribute is neither null nor empty.
+- **Debugging**: Both the server and client components of the application were thoroughly debugged to identify and resolve any issues related to the addition of the email field, ensuring a smooth and reliable user experience.
+
+4. **Merge the code into the main branch**
+
+Completing the email field feature required several steps to merge the changes into the main branch and update the application’s version.
+First, the final modifications on the email-field branch were committed and then pushed to the remote repository, preparing the branch for merging.
+A no-fast-forward merge was used to ensure that the commit history remained intact.
+After merging, the updated main branch was pushed to the remote repository, and finally, the new version was tagged and pushed to mark this significant update.
+
+```shell
+# Commit the feature changes:
+git add .
+git commit -m "added e-mail fiel to the application"
+
+# Push the feature branch upstream:
+git push --set-upstream origin email-field
+
+# Switch to the main branch and merge changes:
+git checkout main
+git merge --no-ff email-field
+
+# Push the merged changes to update the main branch:
+git push
+
+# Tag the new version and push the tag:
+git tag -a v1.3.0 -m "v1.3.0"
+git push origin v1.3.0
+```
+
+After pushing the tag, I noticed that I hadn’t referenced the issue I had previously opened on GitHub.
+
+```shell
+# Commit an amend to the lat commit:
+git commit --amend -m "added e-mail fiel to the application (#6)"
+
+# Force-push to the repository, as it was only intended to amend the last commit:
+git push --force
+```
+
+5. **Create a new branch to fix a bug**
+
+In addressing the bug fix for email validation in the Employee class, a branch named `fix-invalid-email` was created following the established workflow.
+The development, testing, and merging processes were consistent with those used for previous features and fixes, with a strong focus on maintaining code integrity and application stability.
+The core of the bug fix involved enhancing the Employee class by implementing improved validation logic for the email field.
+This logic ensures that the email includes an “@” character and adheres to the regex pattern "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", which verifies that the email address conforms to a robust and acceptable format.
+
+```java
+private boolean isEmailValid(String email) {
+  if(email == null || email.isBlank()) {
+    return false;
+  }
+  String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+  return email.matches(emailRegex);
+}
+```
+
+6. **End of the assignment**
+
+After applying the fix and thoroughly testing its effectiveness, the changes were merged into the master branch and the application version was updated to v1.3.1 to reflect the minor fix.
+This version increment underscores the ongoing improvement in the application’s functionality and reliability. At the conclusion of the assignment, I tagged the repository with ca1-part1.2.
