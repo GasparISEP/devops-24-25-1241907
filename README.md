@@ -15,10 +15,23 @@
 - [Part 1: Development Without Branches](#part-1-development-without-branches)
     - [Goals and Requirements](#goals-and-requirements)
     - [Key Developments](#key-developments)
+
 - [Part 2: Development Using Branches](#part-2-development-using-branches)
     - [Goals and Requirements](#goals-and-requirements-1)
     - [Key Developments](#key-developments-1)
 
+- [Final Results](#final-results)
+    - [Implementation](#implementation)
+    - [Branches](#branches)
+    - [Tags](#tags)
+    - [Issue Tracking](#issue-tracking)
+
+- [Alternative Solution](#alternative-solution)
+    - [Analysis and comparison of Bazaar and Git](#analysis-and-comparison-of-bazaar-and-git)
+    - [Key Bazaar Commands](#key-bazaar-commands)
+    - [Conclusion](#conclusion)
+
+- [Conclusion](#conclusion)
 
 ## Introduction
 This document outlines the assignment on Version Control using Git for the DevOps course. 
@@ -26,12 +39,12 @@ The task is divided into two primary segments: in Step 1, a straightforward appr
 The Final Results section showcases the project’s outcomes, illustrating how the application has progressively evolved through the implementation of new functionalities and the resolution of issues. 
 Additionally, the report examines an Alternative Approach by assessing Subversion (SVN), comparing its attributes and potential applicability in achieving the assignment’s objectives.
 
-
 ## Environment Setup
 Initially, I cloned a repository that already contained the Tutorial React.js and Spring Data REST application, thereby creating a local duplicate of the tutorial project. 
 Afterward, I established a personal repository specifically for hosting the class assignments, ensuring that every development change was systematically tracked via version control.
 
-**Creating My Repository:**
+**Creating My Repository**
+
 I set up a dedicated folder on my local machine for the DevOps class assignments and converted it into a Git repository.
 This action marked the initial phase in creating my project workspace.
 
@@ -40,7 +53,9 @@ mkdir ~/devops-24-25-1241907
 cd ~/devops-24-25-1241907
 git init
 ```
-**Copying the Tutorial Application:** 
+
+**Copying the Tutorial Application** 
+
 In order to incorporate the tutorial application into my project, 
 I transferred all of its files into my repository. 
 This procedure guaranteed that every critical component needed for the assignment was systematically maintained under version control.
@@ -49,14 +64,15 @@ This procedure guaranteed that every critical component needed for the assignmen
 cp -r ~/basic ~/devops-24-25-1241907
 ```
 
-**Linking to GitHub:**
+**Linking to GitHub**
+
 After transferring the tutorial application into my repository, I proceeded to associate my local repository with a newly created GitHub repository.
 This setup enabled me to push my updates to a remote server, ensuring both reliable backup and effortless sharing.
 
 ```shell
 git remote add origin git@github.com:GasparISEP/devops-24-25-1241907.git
 ```
-**First Commit:**
+**First Commit**
 Once the repository was fully configured and all necessary files were verified to be in place, I proceeded to add the README file. 
 This initial addition was committed with the message “initial commit”, marking the official start of my assignment work.
 
@@ -65,13 +81,16 @@ echo "# devops-24-25-1241907" >> README.md
 git add README.md
 git commit -m "initial commit"
 ```
-**Pushing to Remote:**
+
+**Pushing to Remote**
+
 Finally, I pushed my inaugural commit to the GitHub repository, thereby initiating the remote version history for my assignments.
 
 ```shell
 git branch -M main
 git push -u origin main
 ```
+
 This approach provided a tidy and well-structured beginning for my class assignments, establishing a direct connection to the original tutorial application while keeping my repository ready for all future developments.
 
 
@@ -524,3 +543,201 @@ private boolean isEmailValid(String email) {
 
 After applying the fix and thoroughly testing its effectiveness, the changes were merged into the master branch and the application version was updated to v1.3.1 to reflect the minor fix.
 This version increment underscores the ongoing improvement in the application’s functionality and reliability. At the conclusion of the assignment, I tagged the repository with ca1-part1.2.
+
+## Final Results
+
+### Implementation
+After implementing all the new features, the final state of the application is this.
+
+<img src="https://i.imgur.com/RhWyDcd.png" width="650">
+
+In our application’s employee model, the fields “First Name,” “Last Name,” and “Description” were pre-existing components and remained unchanged throughout this project.
+The development enhancements commenced during Part 1 of CA1 with the introduction of the “Job Years” field, designed to track the duration of employees’ tenure within the company.
+It was later identified that the “Job Title” field, initially intended for a prior exercise, had not yet been implemented. This field was subsequently added to ensure the model accurately reflected employees’ roles.
+The most recent enhancement, completed in Part 2 of CA1, involved incorporating the “Email” field, further enriching the employee data model with essential contact information.
+
+The image below displays the current branches in the repository, as shown by the output of the `git branch` command.
+
+<img  src="https://i.imgur.com/VmZBMYr.png"  width="200">
+
+The next image illustrates the chronological sequence of branches, as shown by the output of this command `git log --all --decorate --oneline --graph --pretty=format:"%h %d"`.
+
+<img  src="https://i.imgur.com/0hfYlOO.png"  width="500">
+
+Through this assignment, I learned the importance of using branches to isolate changes related to specific features or fixes.
+This approach helps maintain the stability of the main codebase while providing a clear and organized history of changes.
+
+### Tags
+Below is a visual representation of the project’s tags, generated using the `git tag` command.
+
+<img  src="https://i.imgur.com/WujniUX.png"  width="170">
+
+Using tags has taught me how to mark significant milestones in the project's history.
+This is essential for tracking progress over time and for quickly reverting to previous versions when necessary.
+
+### Issue Tracking
+Throughout the development process, seven issues and a few sub-issues were created on GitHub to effectively track and manage arising problems.
+These issues were referenced by incorporating `#1`, `#2`, and so on in the respective commit messages. They could have been closed along with the commit messages, but I was not aware of this at the time.
+This approach not only ensured a clear documentation of each problem and its solution.
+The visual below illustrates the issues created and resolved during the assignment.
+
+<img  src="https://i.imgur.com/uTlSEyO.png"  width="500">
+
+Issues play a versatile role in project management. They can be utilized to track bugs, request new features, or manage general tasks.
+Additionally, issues can be assigned to specific team members, labeled for easier searching, and linked to particular commits or pull requests.
+In future assignments, the goal is to leverage issues throughout the entire development process.
+This approach will aid in task management, progress tracking, and enhancing collaboration, especially in team-based environments.
+
+This section offers a comprehensive overview of the application’s evolution, highlighting the integration of new features, strategic branching for development, and the marking of key milestones with tags.
+The visual representations of the repository’s branches and tags illustrate the practical application of version control concepts, emphasizing the collaborative and iterative nature of software development.
+Moreover, the incorporation of issue tracking reinforces the importance of maintaining a clear and organized project history, ensuring that all developments are thoroughly documented and easily traceable.
+
+## Alternative Solution
+In seeking an alternative to Git for version control, Bazaar (bzr) presents a unique approach with its flexible support for both centralized and decentralized workflows.
+Unlike Git’s strictly decentralized model, Bazaar allows teams to choose the workflow that best suits their project needs. This section compares Bazaar to Git in terms of version control features and describes how Bazaar could be utilized to achieve the goals set forth in this assignment.
+
+
+### Analysis and comparison of Bazaar (bzr) and Git
+
+Although Git is one of the most popular version control systems, alternatives like **Bazaar (bzr)** offer distinct approaches with their own advantages and limitations.
+This chapter focuses on **Bazaar**, outlining essential commands to set up the environment and replicate the previous class assignment.
+Additionally, Bazaar's features are analyzed and compared to Git.
+
+### Key Bazaar Commands
+
+- **Setting Up the Environment**  
+To initialize a Bazaar repository, first install Bazaar and then configure the local repository using the following commands:
+
+```bash
+mkdir ~/devops-24-25-1241907
+cd ~/devops-24-25-1241907
+bzr init
+```
+
+- **Committing with Bazaar**
+Similar to Git, files must be added to the staging area before committing them.
+
+  ```bash
+  bzr add <file>
+  bzr commit -m "Commit message"
+  ```
+
+- **Connecting to a Remote Repository**
+Bazaar allows you to bind a local repository to a remote one.
+This ensures that changes are pushed automatically.
+
+```bash
+bzr bind <remote-repository-URL>
+```
+
+To push changes:
+
+```bash
+bzr push
+```
+
+- **Managing Branches in Bazaar**
+Bazaar’s approach to branching is simpler and more intuitive compared to Git.
+Each branch is essentially a standalone directory.
+
+  `Permanent Branches`
+
+These branches are created as separate directories and persist as long as the directory exists.
+They are suitable for long-term development as they retain their history and can be pushed to remote repositories.
+
+  `Feature Branches`
+
+For temporary development, feature branches are created as isolated directories.
+These branches can be easily discarded after merging and are ideal for testing new features or fixes.
+Since Bazaar branches are directory-based, this method provides a simple and clear structure.
+
+To create and work on a new branch:
+
+```bash
+bzr branch . email-feature
+cd email-feature
+```
+
+To merge the branch into the `main` branch:
+
+```bash
+cd ../main
+bzr merge ../email-feature
+bzr commit -m "Merged email-feature branch into main"
+```
+
+- **Using Tags:**
+Bazaar supports tagging specific revisions to mark significant milestones.
+ 
+```bash
+bzr tag v1.3.0
+bzr push
+```
+
+To push the `tag` along with other changes:
+
+```bash
+bzr push
+```
+
+### Analysis and Comparison
+
+Although Git and Bazaar serve the same fundamental purpose—tracking changes and facilitating collaboration—their design philosophies and workflows differ significantly.
+
+- **Repository Management**
+
+Git uses a distributed model where every clone is a full copy of the repository.
+
+Bazaar also supports distributed workflows but is simpler to set up for centralized systems.
+Its branching is directory-based, which can be easier to manage for small projects.
+
+
+- **Branching**
+
+In Git, branches are lightweight and designed for complex, parallel development.
+
+Bazaar treats each branch as a separate directory. This can be easier for beginners but less flexible in large, collaborative projects.
+
+
+- **Storage Model** 
+
+Git saves the repository history as snapshots, optimizing for speed and efficiency.
+
+Bazaar focuses on changesets that are sequential, offering a straightforward history model.
+
+
+- **Ease of Use**
+
+Bazaar is generally easier for newcomers due to its simpler command structure.
+
+Git has a steeper learning curve but provides advanced features and more granular control.
+
+
+- **Ease of Use**
+
+Git excels with large repositories and complex branch structures.
+
+Bazaar performs well with small to medium-sized projects and is simpler to manage when fewer contributors are involved.
+
+
+### Conclusion
+
+Choosing between Git and Bazaar depends on the project’s complexity and team preferences:
+- Git is favored for large-scale, complex projects that require robust branching and high performance.
+- Bazaar is ideal for smaller projects or teams that prefer simplicity and an intuitive branching model.
+
+Both systems have their merits, but Bazaar offers a more straightforward approach that can be easier to adopt for simpler projects or individual developers.
+
+## Conclusion
+
+Completing the **Version Control with Git** assignment has significantly deepened my understanding of version control systems and their pivotal role in software development.
+**Part** 1 of the assignment reinforced foundational concepts, focusing on direct modifications to the main branch, along with the essential practices of committing and tagging.
+Progressing to **Part 2**, which introduced branching, provided a deeper exploration of complex scenarios involving feature additions and bug fixes.
+This demonstrated the importance of isolating changes to maintain a clearer project history and facilitate easier management.
+
+The Final Results section of this report encapsulates the tangible outcomes of this learning journey, highlighting the application’s enhanced functionality achieved through the successive addition of new features.
+This visual representation underscores the practical application of version control principles in real-world software development scenarios.
+The assignment also introduced the use of GitHub issues for problem tracking and management, offering a transparent history of problems and their respective solutions.
+This practice emphasized the versatility and applicability of issues in managing software development projects effectively.
+
+Overall, this assignment not only strengthened my technical skills in utilizing Git but also emphasized the crucial role of version control in fostering collaborative development environments, ensuring code integrity, and efficiently managing project evolution.
