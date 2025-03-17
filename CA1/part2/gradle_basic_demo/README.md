@@ -5,6 +5,9 @@ This is a demo application that implements a basic multithreaded chat room serve
 
 The server supports several simultaneous clients through multithreading. When a client connects the server requests a screen name, and keeps requesting a name until a unique one is received. After a client submits a unique name, the server acknowledges it. Then all messages from that client will be broadcast to all other clients that have submitted a unique screen name. A simple "chat protocol" is used for managing a user's registration/leaving and message broadcast.
 
+Force Java 17:
+
+    % export JAVA_HOME=/Users/gasparfigueiras/Library/Java/JavaVirtualMachines/corretto-17.0.14/Contents/Home
 
 Prerequisites
 -------------
