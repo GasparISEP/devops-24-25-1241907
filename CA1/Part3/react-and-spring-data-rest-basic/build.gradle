@@ -37,3 +37,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task copyJar(type: Copy) {
+	dependsOn bootJar
+	from bootJar.outputs
+	into file("dist")
+}
