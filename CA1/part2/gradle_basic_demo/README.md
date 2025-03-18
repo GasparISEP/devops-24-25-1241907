@@ -36,6 +36,6 @@ Open another terminal and execute the following gradle task from the project's r
 
     % ./gradlew runClient
 
-The above task assumes the chat server's IP is "localhost" and its port is "59001". If you whish to use other parameters please edit the runClient task in the "build.gradle" file in the project's root directory.
+The above task assumes the chat server's IP is "localhost" and its port is "59001". If you wish to use other parameters please edit the runClient task in the "build.gradle" file in the project's root directory.
 
 To run several clients, you just need to open more terminals and repeat the invocation of the runClient gradle task

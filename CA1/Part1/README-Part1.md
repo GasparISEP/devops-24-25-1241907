@@ -1,4 +1,4 @@
-# CA1: part 1 - Version Control with Git
+# CA1: Part 1 - Version Control with Git
 
 **DevOps**
 
@@ -73,12 +73,12 @@ This setup enabled me to push my updates to a remote server, ensuring both relia
 git remote add origin git@github.com:GasparISEP/devops-24-25-1241907.git
 ```
 **First Commit**
-Once the repository was fully configured and all necessary files were verified to be in place, I proceeded to add the README file. 
+Once the repository was fully configured and all necessary files were verified to be in place, I proceeded to add the README-part1 file. 
 This initial addition was committed with the message “initial commit”, marking the official start of my assignment work.
 
 ```shell
-echo "# devops-24-25-1241907" >> README.md
-git add README.md
+echo "# devops-24-25-1241907" >> README-Part1.md
+git add README-Part1.md
 git commit -m "initial commit"
 ```
 

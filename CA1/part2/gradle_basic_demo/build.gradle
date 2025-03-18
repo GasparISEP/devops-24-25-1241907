@@ -53,8 +53,6 @@ jar {
     }
 }
 
-
-
 task runClient(type:JavaExec, dependsOn: classes){
     group = "DevOps"
     description = "Launches a chat client that connects to a server on localhost:59001 "
@@ -90,6 +88,6 @@ task archive(type: Zip) {
     description = "Creates a zip archive of the source code"
 
     from 'src'
-    archiveFileName = 'src_backup.zip'
-    destinationDir(file('build'))
+    archiveFileName.set('src_backup.zip')
+    destinationDirectory.set(file('build'))
 }
