@@ -43,3 +43,8 @@ task copyJar(type: Copy) {
 	from bootJar.outputs
 	into file("dist")
 }
+
+task cleanWebpack(type: Delete) {
+	delete 'src/main/resources/static/built'
+}
+clean.dependsOn cleanWebpack
