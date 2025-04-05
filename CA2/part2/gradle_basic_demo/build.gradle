@@ -62,6 +62,8 @@ task runClient(type:JavaExec, dependsOn: classes){
     mainClass = 'basic_demo.ChatClientApp'
 
     args 'localhost', '59001'
+
+    executable = "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/bin/java"
 }
 
 task runServer(type:JavaExec, dependsOn: classes){
@@ -73,6 +75,8 @@ task runServer(type:JavaExec, dependsOn: classes){
     mainClass = 'basic_demo.ChatServerApp'
 
     args '59001'
+
+    executable = "/usr/lib/jvm/java-21-openjdk-arm64/bin/java"
 }
 
 task backup(type: Copy) {
