@@ -322,8 +322,6 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-## Conclusion
-
 Both VMware and QEMU provide robust virtualization capabilities, though they cater to different use cases.
 
 - VMware is ideal for users seeking performance, advanced features, and seamless integration with a graphical interface.
@@ -331,3 +329,11 @@ Both VMware and QEMU provide robust virtualization capabilities, though they cat
 - QEMU, especially when paired with KVM, is a flexible and lightweight option well-suited for headless environments or projects requiring architecture emulation.
 
 The choice between them should be guided by the specific needs of the development workflow, resource availability, and licensing constraints.
+
+
+## Conclusion
+
+This technical report outlines the process and outcomes of **Class Assignment 2 - Part 2**, which focused on implementing virtualization using Vagrant.
+The setup involved configuring the Vagrant environment, connecting a Spring Boot application to an H2 database, and successfully running the project — showcasing the practical application of virtualization techniques.
+Furthermore, an alternative approach using VMware with Vagrant was explored, comparing it with QEMU to highlight the differences in performance, compatibility, and the specific benefits that VMware can offer for more advanced virtualization use cases.
+
