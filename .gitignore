@@ -337,4 +337,7 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
+### Vagrant Patch ###
+.vagrant/
+
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,node,react,maven,gradle
