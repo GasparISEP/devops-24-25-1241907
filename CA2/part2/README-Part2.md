@@ -26,6 +26,7 @@ The task involved setting up a virtualized environment capable of running a Spri
 This report outlines the full configuration workflow, including the setup of the Vagrant environment, the integration of the Spring Boot backend with the H2 database, and the successful execution of the project.
 Moreover, it includes a comparison between QEMU (used in this assignment) and VirtualBox, discussing the main distinctions between both virtualization platforms.
 
+
 ## Environment Setup
 
 **Prerequisites Setup**
@@ -336,4 +337,3 @@ The choice between them should be guided by the specific needs of the developmen
 This technical report outlines the process and outcomes of **Class Assignment 2 - Part 2**, which focused on implementing virtualization using Vagrant.
 The setup involved configuring the Vagrant environment, connecting a Spring Boot application to an H2 database, and successfully running the project — showcasing the practical application of virtualization techniques.
 Furthermore, an alternative approach using VMware with Vagrant was explored, comparing it with QEMU to highlight the differences in performance, compatibility, and the specific benefits that VMware can offer for more advanced virtualization use cases.
-
