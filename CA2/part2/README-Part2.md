@@ -1,4 +1,4 @@
-# CA2: Part 1 - Virtualization with Vagrant
+# CA2: Part 2 - Virtualization with Vagrant
 
 **DevOps**
 
