@@ -1,0 +1,14 @@
+# Use a lightweight JRE image based on Eclipse Temurin with Java 21
+FROM eclipse-temurin:21-jre
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the JAR file from the host to the container's working directory
+COPY build/libs/basic_demo-0.1.0.jar ./basic_demo-0.1.0.jar
+
+# Expose the port the chat server will use
+EXPOSE 59001
+
+# Define the entry point to launch the chat server
+ENTRYPOINT ["java", "-cp", "basic_demo-0.1.0.jar", "basic_demo.ChatServerApp", "59001"]
