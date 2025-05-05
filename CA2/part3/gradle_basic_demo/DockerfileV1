@@ -1,0 +1,27 @@
+# Build stage using Gradle and JDK 21
+FROM gradle:8.5.0-jdk21 AS builder
+
+# Set the working directory for the build
+WORKDIR /app
+
+# Copy all project files into the container
+COPY . .
+
+# Make the Gradle wrapper executable and build the JAR
+RUN chmod +x gradlew \
+    && ./gradlew build --no-daemon
+
+# Final stage: use a lightweight JRE image for running the application
+FROM eclipse-temurin:21-jre
+
+# Set the working directory for the runtime container
+WORKDIR /app
+
+# Copy the built JAR from the builder stage
+COPY --from=builder /app/build/libs/basic_demo-0.1.0.jar ./basic_demo-0.1.0.jar
+
+# Expose the port used by the chat server
+EXPOSE 59001
+
+# Set the entry point to run the chat server
+ENTRYPOINT ["java", "-cp", "basic_demo-0.1.0.jar", "basic_demo.ChatServerApp", "59001"]
