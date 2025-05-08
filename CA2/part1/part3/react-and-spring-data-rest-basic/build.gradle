@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '3.4.3'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'org.siouan.frontend-jdk21' version '10.0.0'
+	id 'war'
 }
 
 group = 'com.greglturnquist'
@@ -32,15 +33,16 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
-task copyJar(type: Copy) {
-	dependsOn bootJar
-	from bootJar.outputs
+task copyWar(type: Copy) {
+	dependsOn bootWar
+	from bootWar.outputs
 	into file("dist")
 }
 
@@ -48,3 +50,11 @@ task cleanWebpack(type: Delete) {
 	delete 'src/main/resources/static/built'
 }
 clean.dependsOn cleanWebpack
+
+bootJar {
+	enabled = false
+}
+
+bootWar {
+	archiveFileName = 'basic-0.0.1-SNAPSHOT.war'
+}

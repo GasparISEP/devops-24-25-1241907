@@ -17,13 +17,20 @@ package com.greglturnquist.payroll;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
  * @author Greg Turnquist
  */
 // tag::code[]
 @SpringBootApplication
-public class ReactAndSpringDataRestApplication {
+public class ReactAndSpringDataRestApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+	    return builder.sources(ReactAndSpringDataRestApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ReactAndSpringDataRestApplication.class, args);
