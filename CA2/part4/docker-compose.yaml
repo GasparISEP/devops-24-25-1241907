@@ -1,0 +1,36 @@
+services:
+  db:
+    build:
+      context: ./db
+    container_name: ca2p4-db
+    ports:
+      - "9092:9092"
+      - "8082:8082"
+    volumes:
+      - h2data:/usr/src/app
+    networks:
+      - ca2net
+
+  web:
+    build:
+      context: ./web
+    container_name: ca2p4-web
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL:      jdbc:h2:tcp://db:9092/./test
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_H2_CONSOLE_ENABLED:  "true"
+      SPRING_H2_CONSOLE_PATH:     /h2-console
+    networks:
+      - ca2net
+
+volumes:
+  h2data:
+
+networks:
+  ca2net:
+    driver: bridge
