@@ -1,54 +1,51 @@
 'use strict';
 
 // tag::vars[]
-const React = require('react'); // <1>
-const ReactDOM = require('react-dom'); // <2>
-const client = require('./client'); // <3>
+const React = require('react');
+const ReactDOM = require('react-dom');
+const client = require('./client');
+require('./table-style.css'); // <--- importação do CSS
 // end::vars[]
 
 // tag::app[]
-class App extends React.Component { // <1>
-
+class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {employees: []};
+		this.state = { employees: [] };
 	}
 
-	componentDidMount() { // <2>
-		client({method: 'GET', path: '/api/employees'}).done(response => {
-			this.setState({employees: response.entity._embedded.employees});
+	componentDidMount() {
+		client({ method: 'GET', path: '/api/employees' }).done(response => {
+			this.setState({ employees: response.entity._embedded.employees });
 		});
 	}
 
-	render() { // <3>
+	render() {
 		return (
-			<EmployeeList employees={this.state.employees}/>
+			<EmployeeList employees={this.state.employees} />
 		)
 	}
 }
 // end::app[]
 
 // tag::employee-list[]
-class EmployeeList extends React.Component{
+class EmployeeList extends React.Component {
 	render() {
-		const tableStyle = { borderCollapse: 'collapse', width: '100%' };
-		const cellStyle = { border: '1px solid black', padding: '8px', textAlign: 'left' };
-
 		const employees = this.props.employees.map(employee =>
-			<Employee key={employee._links.self.href} employee={employee}/>
+			<Employee key={employee._links.self.href} employee={employee} />
 		);
 		return (
-			<table style={tableStyle}>
+			<table>
 				<tbody>
-					<tr>
-						<th style={cellStyle}> First Name</th>
-						<th style={cellStyle} >Last Name</th>
-						<th style={cellStyle} >Description</th>
-						<th style={cellStyle} >Job Years</th>
-						<th style={cellStyle} >Job Title</th>
-						<th style={cellStyle} >E-mail</th>
-					</tr>
-					{employees}
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Description</th>
+					<th>Job Years</th>
+					<th>Job Title</th>
+					<th>E-mail</th>
+				</tr>
+				{employees}
 				</tbody>
 			</table>
 		)
@@ -57,18 +54,18 @@ class EmployeeList extends React.Component{
 // end::employee-list[]
 
 // tag::employee[]
-class Employee extends React.Component{
+class Employee extends React.Component {
 	render() {
-		const { employee, cellStyle } = this.props;
+		const { employee } = this.props;
 
 		return (
 			<tr>
-				<td style={cellStyle}>{employee.firstName}</td>
-				<td style={cellStyle}>{employee.lastName}</td>
-				<td style={cellStyle}>{employee.description}</td>
-				<td style={cellStyle}>{employee.jobYears}</td>
-				<td style={cellStyle}>{employee.jobTitle}</td>
-				<td style={cellStyle}>{employee.email}</td>
+				<td>{employee.firstName}</td>
+				<td>{employee.lastName}</td>
+				<td>{employee.description}</td>
+				<td>{employee.jobYears}</td>
+				<td>{employee.jobTitle}</td>
+				<td>{employee.email}</td>
 			</tr>
 		)
 	}
@@ -79,5 +76,5 @@ class Employee extends React.Component{
 ReactDOM.render(
 	<App />,
 	document.getElementById('react')
-)
+);
 // end::render[]
