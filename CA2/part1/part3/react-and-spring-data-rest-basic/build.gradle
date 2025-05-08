@@ -63,7 +63,7 @@ bootWar {
 tasks {
 	processResources {
 		dependsOn assembleFrontend
-		from("${buildDir}/frontend") {
+		from("src/main/js/build") {
 			into 'static'
 		}
 	}
