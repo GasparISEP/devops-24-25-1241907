@@ -341,3 +341,19 @@ gradle-app.setting
 .vagrant/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,node,react,maven,gradle
+
+# ⚠️ Proteção de chave SSH privada e ficheiros sensíveis
+CA2/part4/web/id_rsa
+id_rsa.pub
+*.pem
+*.key
+*.crt
+.ssh/
+
+# Docker build context
+.dockerignore
+docker-compose.override.yml
+*.log
+
+# Docker volumes e cache
+docker-data/

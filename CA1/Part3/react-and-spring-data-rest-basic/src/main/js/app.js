@@ -31,19 +31,22 @@ class App extends React.Component { // <1>
 // tag::employee-list[]
 class EmployeeList extends React.Component{
 	render() {
+		const tableStyle = { borderCollapse: 'collapse', width: '100%' };
+		const cellStyle = { border: '1px solid black', padding: '8px', textAlign: 'left' };
+
 		const employees = this.props.employees.map(employee =>
 			<Employee key={employee._links.self.href} employee={employee}/>
 		);
 		return (
-			<table>
+			<table style={tableStyle}>
 				<tbody>
 					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Description</th>
-						<th>Job Years</th>
-						<th>Job Title</th>
-						<th>E-mail</th>
+						<th style={cellStyle}> First Name</th>
+						<th style={cellStyle} >Last Name</th>
+						<th style={cellStyle} >Description</th>
+						<th style={cellStyle} >Job Years</th>
+						<th style={cellStyle} >Job Title</th>
+						<th style={cellStyle} >E-mail</th>
 					</tr>
 					{employees}
 				</tbody>
@@ -56,14 +59,16 @@ class EmployeeList extends React.Component{
 // tag::employee[]
 class Employee extends React.Component{
 	render() {
+		const { employee, cellStyle } = this.props;
+
 		return (
 			<tr>
-				<td>{this.props.employee.firstName}</td>
-				<td>{this.props.employee.lastName}</td>
-				<td>{this.props.employee.description}</td>
-				<td>{this.props.employee.jobYears}</td>
-				<td>{this.props.employee.jobTitle}</td>
-				<td>{this.props.employee.email}</td>
+				<td style={cellStyle}>{employee.firstName}</td>
+				<td style={cellStyle}>{employee.lastName}</td>
+				<td style={cellStyle}>{employee.description}</td>
+				<td style={cellStyle}>{employee.jobYears}</td>
+				<td style={cellStyle}>{employee.jobTitle}</td>
+				<td style={cellStyle}>{employee.email}</td>
 			</tr>
 		)
 	}
