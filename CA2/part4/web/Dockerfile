@@ -21,12 +21,12 @@ RUN git clone git@github.com:GasparISEP/devops-24-25-1241907.git .
 # Ir para o diretório do projeto
 WORKDIR /usr/src/app/CA2/part1/part3/react-and-spring-data-rest-basic/
 
-# Dar permissão ao Gradle wrapper e compilar o projeto
+# Dar permissão ao Gradle wrapper e compilar o projeto WAR
 RUN chmod +x gradlew \
-    && ./gradlew clean build
+    && ./gradlew clean bootWar
 
 # Expor a porta da aplicação Spring Boot
 EXPOSE 8080
 
 # Comando para iniciar a aplicação
-CMD ["java", "-jar", "build/libs/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-cp", "build/libs/basic-0.0.1-SNAPSHOT.war", "org.springframework.boot.loader.WarLauncher"]
