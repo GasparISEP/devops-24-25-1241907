@@ -59,3 +59,12 @@ bootWar {
 	enabled = true
 	archiveFileName = 'basic-0.0.1-SNAPSHOT.war'
 }
+
+tasks {
+	processResources {
+		dependsOn assembleFrontend
+		from("${buildDir}/frontend") {
+			into 'static'
+		}
+	}
+}
