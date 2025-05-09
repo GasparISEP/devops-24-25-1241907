@@ -56,6 +56,10 @@ bootJar {
 }
 
 bootWar {
+	enabled = false
+}
+
+war {
 	enabled = true
 	archiveFileName = 'basic-0.0.1-SNAPSHOT.war'
 }
