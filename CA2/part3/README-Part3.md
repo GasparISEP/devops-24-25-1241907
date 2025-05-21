@@ -1,4 +1,4 @@
-# CA2 Part3: Containers with Docker: Technical Report
+# CA2: Part3 - Containers with Docker
 
 **DevOps**
 
