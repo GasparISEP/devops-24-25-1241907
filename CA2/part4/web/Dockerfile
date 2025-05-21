@@ -22,7 +22,8 @@ RUN npm run build  # ou npm run webpack, se for o que deseja invocar
 # Compilar o backend com o frontend embutido
 ENV GRADLE_USER_HOME=/usr/src/app/.gradle
 RUN chmod +x gradlew
-RUN ./gradlew clean bootWar
+RUN ./gradlew clean build
+RUN ./gradlew bootWar
 
 # Copiar o WAR gerado para o Tomcat
 RUN cp build/libs/basic-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/basic-0.0.1-SNAPSHOT.war
