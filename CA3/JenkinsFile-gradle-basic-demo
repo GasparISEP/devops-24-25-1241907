@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out from repository'
-                git url: 'git@github.com:GasparISEP/devops-24-25-1241907.git', branch: 'main'
+                git url: 'https://github.com/GasparISEP/devops-24-25-1241907.git', branch: 'main'
             }
         }
         stage('Assemble') {
